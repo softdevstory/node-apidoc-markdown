@@ -6,7 +6,7 @@
 <% groupOrder.forEach(function (group) { -%>
 - [<%= group %>](#<%=: group | mlink %>)
     <% nameOrder[group].forEach(function (sub) { -%>
-- [<%= data[group][sub][0].title %>](#<%=: data[group][sub][0].title | mlink %>)
+- [<%= data[group][sub][0].name %>](#<%=: data[group][sub][0].name | mlink %>)
     <% }); -%>
 
 <% }); %>
@@ -18,14 +18,16 @@
 # <%= group %>
 
 <% nameOrder[group].forEach(function (sub) { -%>
-## <%= data[group][sub][0].title %>
-[Back to top](#top)
+## <%= data[group][sub][0].name %>
+<%= data[group][sub][0].title %>
 
 <%-: data[group][sub][0].description | undef %>
 
     <%-: data[group][sub][0].type | upcase %> <%= data[group][sub][0].url %>
 
 <% if (data[group][sub][0].header && data[group][sub][0].header.fields.Header) { -%>
+
+
 ### Headers
 
 | Name    | Type      | Description                          |
@@ -40,9 +42,7 @@
 ### Header Examples
 
 <% data[group][sub][0].header.examples.forEach(function (example) { -%>
-<%= example.title %>
-
-```
+```json
 <%- example.content %>
 ```
 <% }); //foreach example -%>
@@ -52,7 +52,7 @@
 
 <% Object.keys(data[group][sub][0].parameter.fields).forEach(function(g) { -%>
 
-### <%= g %> Parameters
+### Parameters
 
 | Name     | Type       | Description                           |
 |:---------|:-----------|:--------------------------------------|
@@ -67,13 +67,14 @@ _Allowed values: <%- param.allowedValues %>_<% } %>|
 <% }); //forech (group) parameter -%>
 <% }); //forech param parameter -%>
 <% } //if parameters -%>
-<% if (data[group][sub][0].examples && data[group][sub][0].examples.length) { -%>
-### Examples
 
-<% data[group][sub][0].examples.forEach(function (example) { -%>
-<%= example.title %>
+<% if (data[group][sub][0].parameter && data[group][sub][0].parameter.examples.length) { -%>
 
-```
+
+### Parameter Examples
+
+<% data[group][sub][0].parameter.examples.forEach(function (example) { -%>
+```json
 <%- example.content %>
 ```
 <% }); //foreach example -%>
@@ -85,7 +86,7 @@ _Allowed values: <%- param.allowedValues %>_<% } %>|
 <% data[group][sub][0].success.examples.forEach(function (example) { -%>
 <%= example.title %>
 
-```
+```json
 <%- example.content %>
 ```
 <% }); //foreach success example -%>
@@ -115,10 +116,11 @@ _Allowed values: <%- param.allowedValues %>_<% } %>|
 <% data[group][sub][0].error.examples.forEach(function (example) { -%>
 <%= example.title %>
 
-```
+```json
 <%- example.content %>
 ```
 <% }); //foreach error example -%>
 <% } //if examples -%>
+[Back to top](#top)
 <% }); //foreach sub  -%>
 <% }); //foreach group -%>
