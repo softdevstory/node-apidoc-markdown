@@ -5,9 +5,9 @@
 
 <% groupOrder.forEach(function (group) { -%>
 - [<%= group %>](#<%=: group | mlink %>)
-	<% nameOrder[group].forEach(function (sub) { -%>
+    <% nameOrder[group].forEach(function (sub) { -%>
 - [<%= data[group][sub][0].title %>](#<%=: data[group][sub][0].title | mlink %>)
-	<% }); -%>
+    <% }); -%>
 
 <% }); %>
 
@@ -23,9 +23,9 @@
 
 <%-: data[group][sub][0].description | undef %>
 
-	<%-: data[group][sub][0].type | upcase %> <%= data[group][sub][0].url %>
+    <%-: data[group][sub][0].type | upcase %> <%= data[group][sub][0].url %>
 
-<% if (data[group][sub][0].header && data[group][sub][0].header.fields.Header.length) { -%>
+<% if (data[group][sub][0].header && data[group][sub][0].header.fields.Header) { -%>
 ### Headers
 
 | Name    | Type      | Description                          |
@@ -35,7 +35,7 @@
 <% }); //forech parameter -%>
 <% } //if parameters -%>
 
-<% if (data[group][sub][0].header && data[group][sub][0].header.examples.length) { -%>
+<% if (data[group][sub][0].header && data[group][sub][0].header.examples) { -%>
 
 ### Header Examples
 
